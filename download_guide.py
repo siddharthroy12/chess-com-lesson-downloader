@@ -43,8 +43,8 @@ def download_guide(path=os.getcwd()):
     "Download all guide lessons and store it inside guide folder"
     lessons_level_url = get_guide_lessons()
     for level in lessons_level_url:
-        download_lesson(lessons_level_url[level],
-                        os.path.join(path, level))
+        for lesson in lessons_level_url[level]:
+            download_lesson(lesson, os.path.join(path, level))
     pass
 
 

@@ -64,7 +64,7 @@ def download_video(url, path):
         os.makedirs(path)
 
     # Save the file
-    open(os.path.join(path, f"{file_name}.mp4"), 'wb').write(r.content)
+    open(os.path.join(path, f"{file_name}"), 'wb').write(r.content)
     print(f"{file_name} downloaded")
 
 
