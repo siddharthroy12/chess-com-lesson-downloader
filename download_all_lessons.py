@@ -27,8 +27,8 @@ def get_number_of_pages(category):
     """
     html = get_page_html(f"https://www.chess.com/lessons/{category}")
     soup = BeautifulSoup(html, 'html.parser')
-    last_page_button = soup.select_one('button[aria-label="Last Page"]')
-    selected_page = last_page_button['data-selected-page']
+    last_page_button = soup.select_one('div[id="pagination-bottom"]')
+    selected_page = last_page_button['data-total-pages']
     return int(selected_page)
 
 
@@ -51,6 +51,7 @@ def download_all_lessons(path=os.getcwd()):
     categories = ['openings', 'strategy', 'tactics', 'endgames', 'games']
 
     for category in categories:
+        print(f'Downloading from category {category}')
         num_of_pages = get_number_of_pages(category)
         for i in range(1, num_of_pages+1):
             lessons = get_lessons_of_page_number(category, i)
