@@ -57,7 +57,6 @@ def download_video(url, path):
     except:
         print("Failed to download the video. Might be a network problem",
               file=sys.stderr)
-        exit(1)
 
     # Create path if not exists
     if not os.path.exists(path):
@@ -90,7 +89,6 @@ def get_page_html(url):
         res = requests.get(url)
     except:
         print(f"Failed to fetch html from {url}", file=sys.stderr)
-        exit(1)
     return res.text
 
 
@@ -104,14 +102,15 @@ def get_video_url(html):
     if url_match:
         return url_match.group(0)
     else:
-        print("Failed to extract video url from page", file=sys.stderr)
-        exit(1)
+        print("Failed to extract video url from page. \nThis lesson doesn't have a video mostlikely.", file=sys.stderr)
+        return ""
 
 
 def download_lesson_video(video_lesson_url, path=os.getcwd()):
     html = get_page_html(video_lesson_url)
     video_lesson_url = get_video_url(html)
-    download_video(video_lesson_url, path)
+    if video_lesson_url:
+        download_video(video_lesson_url, path)
 
 
 if __name__ == "__main__":
