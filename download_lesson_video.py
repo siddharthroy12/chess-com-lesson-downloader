@@ -89,6 +89,7 @@ def get_page_html(url):
         res = requests.get(url)
     except:
         print(f"Failed to fetch html from {url}", file=sys.stderr)
+        return ""
     return res.text
 
 
